@@ -1,9 +1,5 @@
-body {
-  background-color: #99bbff80;
-  background-image: url("assets/ivory-off-white-paper-texture.jpg");
-  background-blend-mode: multiply;
-  background-size: cover;
-  background: linear-gradient(to bottom, #adffffcc 80%, #ffffffcc) no-repeat;
-
-  height: 100%;
-}
+@import "./typography";
+@import "./varibles";
+@import "./mixin";
+@import "./reset";
+@import "./pages";

@@ -1,0 +1,12 @@
+@mixin font($fw, $fz, $lh: 1) {
+  font-family: $siteFont;
+  font-size: $fz;
+  font-weight: $fw;
+  line-height: $lh;
+}
+
+%fcc{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
