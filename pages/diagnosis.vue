@@ -6,6 +6,7 @@
           <img :src="store.imageData" v-if="store.imageData" />
         </div>
 
+        <!-- <p>{{ resultText }}</p> -->
         <div v-if="!resultText?.result" class="btns">
           <!-- cancel -->
           <button class="btn" @click="(store.Overlay = true), openModal()">
@@ -36,7 +37,7 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 
-const resultText = ref("");
+const resultText = ref({});
 const submitImage = async () => {
   if (!store.imageData) {
     alert("Iltimos, rasmga oling yoki yuklang");
@@ -49,22 +50,23 @@ const submitImage = async () => {
   formData.append("image", blob, "photo.png"); // 👈 'image' API kutilayotgan nom
 
   try {
-    const res = await fetch("/api/v1/diagnose/", {
-      method: "POST",
-      body: formData,
-    });
+  const res = await fetch("/api/v1/diagnose/", {
+    method: "POST",
+    body: formData,
+  });
 
-    if (!res.ok) {
-      const errorText = await res.text();
-      throw new Error(`Xatolik: ${res.status} - ${errorText}`);
-    }
-
-    const data = await res.json();
-    resultText.value = data.result || JSON.stringify(data); // javobga qarab moslashtiring
-  } catch (error) {
-    console.error("Xatolik:", error);
-    resultText.value = `Xatolik yuz berdi: ${error.message}`;
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Xatolik: ${res.status} - ${errorText}`);
   }
+
+  const responseData = await res.json(); // <<=== Javobni shu o'zgaruvchiga tayinladik
+
+  resultText.value = responseData.result || JSON.stringify(responseData); // Kerakli joyda foydalaniladi
+} catch (error) {
+  console.error("Xatolik:", error);
+  resultText.value = `Xatolik yuz berdi: ${error.message}`;
+}
 };
 
 function toHome() {
