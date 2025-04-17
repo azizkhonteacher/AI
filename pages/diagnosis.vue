@@ -10,10 +10,10 @@
         <div v-if="!resultText?.result" class="btns">
           <!-- cancel -->
           <button class="btn" @click="(store.Overlay = true), openModal()">
-            Cancel
+            Orqaga
           </button>
           <!-- submit -->
-          <button @click="submitImage" class="btn">Send</button>
+          <button @click="submitImage" class="btn">Yuborish</button>
         </div>
 
         <div v-if="resultText?.result" class="result-wrap">
@@ -22,7 +22,7 @@
           </div>
 
           <div class="return-btn">
-            <button @click="toHome()">Return</button>
+            <button @click="toHome()">Qayta tekshirish</button>
           </div>
         </div>
       </div>

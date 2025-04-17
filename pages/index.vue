@@ -2,10 +2,9 @@
   <div class="home-wrap">
     <div class="container">
       <div class="info">
-        <h2 class="title">Welcome</h2>
+        <h2 class="title">Xush kelibsiz</h2>
         <p class="desc">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus, deserunt.
+          Shunchaki suratga oling yoki rasm yuklang – tahlil qilish bizning zimdamiz!
         </p>
       </div>
 
@@ -51,7 +50,7 @@
                 />
               </g>
             </svg>
-            <p>Take Photo</p>
+            <p>Rasmga olish</p>
           </button>
         </div>
         <div class="btn">
@@ -101,7 +100,7 @@
               />
               <circle cx="188" cy="168" r="10" />
             </svg>
-            <p>Upload Image</p>
+            <p>Rasm yuklash</p>
           </button>
         </div>
       </div>
