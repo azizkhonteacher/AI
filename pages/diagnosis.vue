@@ -6,8 +6,7 @@
           <img :src="store.imageData" v-if="store.imageData" />
         </div>
 
-        <!-- <p>{{ resultText }}</p> -->
-        <div v-if="!resultText?.result" class="btns">
+        <div v-if="!resultText " class="btns">
           <!-- cancel -->
           <button class="btn" @click="(store.Overlay = true), openModal()">
             Orqaga
@@ -16,9 +15,9 @@
           <button @click="submitImage" class="btn">Yuborish</button>
         </div>
 
-        <div v-if="resultText?.result" class="result-wrap">
+        <div v-if="resultText" class="result-wrap">
           <div class="text">
-            <p>{{ resultText?.result }}</p>
+            <p>{{ resultText }}</p>
           </div>
 
           <div class="return-btn">
@@ -37,7 +36,7 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 
-const resultText = ref({});
+const resultText = ref("");
 const submitImage = async () => {
   if (!store.imageData) {
     alert("Iltimos, rasmga oling yoki yuklang");
@@ -62,7 +61,13 @@ const submitImage = async () => {
 
   const responseData = await res.json(); // <<=== Javobni shu o'zgaruvchiga tayinladik
 
-  resultText.value = responseData.result || JSON.stringify(responseData); // Kerakli joyda foydalaniladi
+  console.log(responseData?.diagnosis?.result);
+  
+  // Natijani p tegiga o‘rnatamiz
+  resultText.value = responseData?.diagnosis?.result || JSON.stringify(responseData?.diagnosis?.result);
+    console.log(resultText.value);
+  
+  
 } catch (error) {
   console.error("Xatolik:", error);
   resultText.value = `Xatolik yuz berdi: ${error.message}`;
