@@ -108,6 +108,50 @@ const submitForm = async () => {
 };
 </script> -->
 
-<template>
+<!-- <template>
   <NuxtPage />
+
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, deserunt.
+</template> -->
+
+
+<template>
+  <div>
+    <input type="file" @change="handleFileUpload" accept="image/*" />
+    <button @click="submitImage">Yuborish</button>
+  </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+
+const selectedFile = ref(null)
+
+const handleFileUpload = (event) => {
+  selectedFile.value = event.target.files[0]
+}
+
+const submitImage = async () => {
+  if (!selectedFile.value) {
+    alert('Iltimos, rasm tanlang')
+    return
+  }
+
+  const formData = new FormData()
+  formData.append('img', selectedFile.value)
+
+  try {
+    const response = await $fetch('https://redoxai-production.up.railway.app/api/v1/diagnose/', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        // Bu yerda `Content-Type` qo‘shmaslik kerak! Brauzer uni avtomatik qo‘shadi `FormData` uchun
+      }
+    })
+
+    console.log('Javob:', response)
+  } catch (error) {
+    console.error('Xatolik:', error)
+  }
+}
+</script>

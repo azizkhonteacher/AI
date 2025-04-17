@@ -3,4 +3,7 @@ body {
   background-image: url("assets/ivory-off-white-paper-texture.jpg");
   background-blend-mode: multiply;
   background-size: cover;
+  background: linear-gradient(to bottom, #adffffcc 80%, #ffffffcc) no-repeat;
+
+  height: 100%;
 }
