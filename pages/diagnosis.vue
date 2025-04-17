@@ -6,7 +6,7 @@
           <img :src="store.imageData" v-if="store.imageData" />
         </div>
 
-        <div v-if="!resultText " class="btns">
+        <div v-if="!resultText" class="btns">
           <!-- cancel -->
           <button class="btn" @click="(store.Overlay = true), openModal()">
             Orqaga
@@ -49,29 +49,26 @@ const submitImage = async () => {
   formData.append("image", blob, "photo.png"); // 👈 'image' API kutilayotgan nom
 
   try {
-  const res = await fetch("/api/v1/diagnose/", {
-    method: "POST",
-    body: formData,
-  });
+    const res = await fetch("/api/v1/diagnose/", {
+      method: "POST",
+      body: formData,
+    });
 
-  if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`Xatolik: ${res.status} - ${errorText}`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Xatolik: ${res.status} - ${errorText}`);
+    }
+
+    const responseData = await res.json(); // <<=== Javobni shu o'zgaruvchiga tayinladik
+
+    // Natijani p tegiga o‘rnatamiz
+    resultText.value =
+      responseData?.diagnosis?.message ||
+      JSON.stringify(responseData?.diagnosis?.message);
+  } catch (error) {
+    console.error("Xatolik:", error);
+    resultText.value = `Xatolik yuz berdi: ${error.message}`;
   }
-
-  const responseData = await res.json(); // <<=== Javobni shu o'zgaruvchiga tayinladik
-
-  console.log(responseData?.diagnosis?.result);
-  
-  // Natijani p tegiga o‘rnatamiz
-  resultText.value = responseData?.diagnosis?.result || JSON.stringify(responseData?.diagnosis?.result);
-    console.log(resultText.value);
-  
-  
-} catch (error) {
-  console.error("Xatolik:", error);
-  resultText.value = `Xatolik yuz berdi: ${error.message}`;
-}
 };
 
 function toHome() {
